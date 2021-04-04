@@ -1,5 +1,6 @@
 import express from 'express';
 import apartmentControllers from '../controllers/apartment.controller';
+import { requireSignin } from '../controllers/auth.controller';
 const {
   apartmentById,
   createApartment,
@@ -11,7 +12,7 @@ const {
 
 const router = express.Router();
 
-router.route('/apartment/new').post(createApartment);
+router.route('/apartment/new').post(requireSignin, createApartment);
 router
   .route('/apartment/:id')
   .get(getSingleApartment)

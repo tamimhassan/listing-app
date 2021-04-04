@@ -1,13 +1,22 @@
-const mongoose = require('mongoose');
-const { v4: uuidv4 } = require('uuid');
-const crypto = require('crypto');
+import mongoose from 'mongoose';
+import { v4 as uuidv4 } from 'uuid';
+import crypto from 'crypto';
 
 const userSchema = new mongoose.Schema({
-  name: String,
-
-  email: String,
-
-  hashed_password: String,
+  name: {
+    type: String,
+    trim: true,
+    required: true,
+  },
+  email: {
+    type: String,
+    trim: true,
+    required: true,
+  },
+  hashed_password: {
+    type: String,
+    required: true,
+  },
 
   apartments: [
     {
