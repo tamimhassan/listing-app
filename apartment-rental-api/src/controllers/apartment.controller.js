@@ -2,6 +2,20 @@ import { Apartment } from '../models/apartment.model';
 import formidable from 'formidable';
 import fs from 'fs';
 
+export const apartmentById = async (req, res, next, id) => {
+  await Apartment.findById(id)
+    .populate('realtor', '_id name')
+    .exec((error, apartment) => {
+      if (error || !apartment) {
+        return res.status(400).json({
+          error: error,
+        });
+      }
+      req.apartment = apartment;
+      next();
+    });
+};
+
 export const createApartment = async (req, res) => {
   let form = await new formidable.IncomingForm();
   form.keepExtensions = true;
@@ -32,49 +46,61 @@ export const createApartment = async (req, res) => {
   });
 };
 
-export const apartmentById = async (req, res, next, id) => {
-  await Apartment.findById(id).exec((error, apartment) => {
-    if (error || !apartment) {
-      return res.status(400).json({
-        error: error,
-      });
-    }
-    req.apartment = apartment;
-    req.params = {
-      apartmentId: id,
-    };
-    next();
-  });
-};
-
 export const getSingleApartment = (req, res) => {
   if (!req.apartment) {
     return res.status(400).json({
       error: 'apartment is not found.',
     });
   }
-  res.status(200).json({
-    apartment: req.apartment,
-  });
+  res.status(200).json(req.apartment);
+};
+
+export const isPoster = (req, res, next) => {
+  const _isPoster =
+    req.apartment && req.auth && req.apartment.realtor._id == req.auth._id;
+
+  if (!_isPoster) {
+    return res.status(403).json({
+      error: 'User is not authorized!',
+    });
+  }
+  next();
 };
 
 export const updateSingleApartment = async (req, res) => {
-  await Apartment.findByIdAndUpdate(
-    { _id: req.params.apartmentId },
-    { ...req.body, updated: Date.now() },
-    { new: true },
-  ).exec((error, apartment) => {
-    if (error || !apartment) {
+  let form = await new formidable.IncomingForm();
+  form.keepExtensions = true;
+  form.parse(req, async (error, fields, files) => {
+    if (error) {
       return res.status(400).json({
-        error: "Can't update!",
+        error: 'Image could not be uploaded',
       });
     }
-    res.status(200).json({ apartment });
+
+    await Apartment.findByIdAndUpdate(
+      { _id: req.apartment._id },
+      { ...fields, updated: Date.now() },
+      { new: true },
+    )
+      .populate('realtor', '_id name')
+      .exec((error, apartment) => {
+        if (files.photo) {
+          post.photo.data = fs.readFileSync(files.photo.path);
+          post.photo.contentType = files.photo.type;
+        }
+
+        if (error || !apartment) {
+          return res.status(400).json({
+            error: "Can't update!",
+          });
+        }
+        res.status(200).json({ apartment });
+      });
   });
 };
 
 export const deleteSingleApartment = async (req, res) => {
-  await Apartment.findByIdAndRemove(req.params.apartmentId).exec(
+  await Apartment.findByIdAndRemove(req.apartment._id).exec(
     (error, deletedApartment) => {
       if (error || !deletedApartment) {
         return res.status(400).json({
@@ -90,7 +116,7 @@ export const deleteSingleApartment = async (req, res) => {
 
 export const getAllApartment = async (req, res) => {
   await Apartment.find()
-    .populate('realtor', '_ name')
+    .populate('realtor', '_id name')
     .exec((error, result) => {
       if (error) {
         return res.status(400).json({
