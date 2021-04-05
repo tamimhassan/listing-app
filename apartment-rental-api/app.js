@@ -1,5 +1,4 @@
 import express from 'express';
-import bodyParser from 'body-parser';
 import morgan from 'morgan';
 import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
@@ -8,7 +7,6 @@ import cors from 'cors';
 
 dotenv.config();
 const app = express();
-const { json, urlencoded } = bodyParser;
 
 // Database
 mongoose
@@ -31,8 +29,8 @@ import userRoutes from './src/routers/user.router';
 
 // Middleware
 app.use(cors());
-app.use(json());
-app.use(urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'));
 app.use(cookieParser());
 app.use('/', apartmentRoutes);
