@@ -23,3 +23,14 @@ export const hasAuthorization = (req, res, next) => {
   }
   next();
 };
+
+export const getAllUser = async (req, res) => {
+  await User.find()
+    .select('_id email name')
+    .exec((error, users) => {
+      if (error || !users) {
+        return res.status(400).json({ error });
+      }
+      res.status(200).json({ users });
+    });
+};

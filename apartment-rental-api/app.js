@@ -26,6 +26,7 @@ mongoose.connection.on('error', (err) => {
 // Bring in routes
 import apartmentRoutes from './src/routers/apartment.router';
 import authRoutes from './src/routers/auth.router';
+import userRoutes from './src/routers/user.router';
 
 // Middleware
 app.use(json());
@@ -34,6 +35,7 @@ app.use(morgan('dev'));
 app.use(cookieParser());
 app.use('/', apartmentRoutes);
 app.use('/', authRoutes);
+app.use('/', userRoutes);
 app.use(function (err, req, res, next) {
   if (err.name === 'UnauthorizedError') {
     res.status(401).json({ error: 'Unauthorized!' });
