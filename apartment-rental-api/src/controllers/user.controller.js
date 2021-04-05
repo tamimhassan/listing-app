@@ -34,3 +34,17 @@ export const getAllUser = async (req, res) => {
       res.status(200).json({ users });
     });
 };
+
+export const getSingleUser = async (req, res) => {
+  if (!req.profile) {
+    return res.status(400).json({
+      error: 'User is not found.',
+    });
+  }
+  req.profile.hashed_password = undefined;
+  req.profile.salt = undefined;
+
+  res.status(200).json({
+    user: req.profile,
+  });
+};
