@@ -4,6 +4,7 @@ import morgan from 'morgan';
 import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
 import mongoose from 'mongoose';
+import cors from 'cors';
 
 dotenv.config();
 const app = express();
@@ -29,6 +30,7 @@ import authRoutes from './src/routers/auth.router';
 import userRoutes from './src/routers/user.router';
 
 // Middleware
+app.use(cors());
 app.use(json());
 app.use(urlencoded({ extended: true }));
 app.use(morgan('dev'));
