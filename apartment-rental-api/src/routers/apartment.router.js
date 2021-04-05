@@ -12,7 +12,7 @@ import { userById } from '../controllers/user.controller';
 
 const router = express.Router();
 
-router.route('/apartment/new').post(requireSignin, createApartment);
+router.route('/apartment/new/:userId').post(requireSignin, createApartment);
 router
   .route('/apartment/:id')
   .get(getSingleApartment)

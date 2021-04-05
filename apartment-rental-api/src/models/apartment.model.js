@@ -11,6 +11,11 @@ const apartmentSchema = new mongoose.Schema({
 
   location: String,
 
+  photo: {
+    data: Buffer,
+    contentType: String,
+  },
+
   created: {
     type: Date,
     default: Date.now,

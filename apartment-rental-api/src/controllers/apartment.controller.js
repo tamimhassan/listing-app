@@ -1,15 +1,34 @@
 import { Apartment } from '../models/apartment.model';
+import formidable from 'formidable';
+import fs from 'fs';
 
 export const createApartment = async (req, res) => {
-  const apartment = await Apartment.create(req.body);
-
-  apartment.save((error, result) => {
+  let form = await new formidable.IncomingForm();
+  form.keepExtensions = true;
+  form.parse(req, async (error, fields, files) => {
     if (error) {
       return res.status(400).json({
-        error: error,
+        error: 'Image could not be uploaded',
       });
     }
-    res.status(200).json(result);
+    const apartment = await Apartment.create(fields);
+    apartment.realtor = req.profile;
+    apartment.realtor.salt = undefined;
+    apartment.realtor.hashed_password = undefined;
+
+    if (files.photo) {
+      apartment.photo.data = fs.readFileSync(files.photo.path);
+      apartment.photo.contenType = files.photo.type;
+    }
+
+    await apartment.save((error, result) => {
+      if (error) {
+        return res.status(400).json({
+          error: error,
+        });
+      }
+      res.status(200).json(result);
+    });
   });
 };
 
@@ -70,14 +89,16 @@ export const deleteSingleApartment = async (req, res) => {
 };
 
 export const getAllApartment = async (req, res) => {
-  await Apartment.find().exec((error, result) => {
-    if (error) {
-      return res.status(400).json({
-        error: 'Can not find all apartment!',
+  await Apartment.find()
+    .populate('realtor', '_ name')
+    .exec((error, result) => {
+      if (error) {
+        return res.status(400).json({
+          error: 'Can not find all apartment!',
+        });
+      }
+      res.status(200).json({
+        data: result,
       });
-    }
-    res.status(200).json({
-      data: result,
     });
-  });
 };
