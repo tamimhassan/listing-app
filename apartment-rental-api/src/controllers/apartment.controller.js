@@ -102,3 +102,15 @@ export const getAllApartment = async (req, res) => {
       });
     });
 };
+
+export const apartmentsByUser = async (req, res) => {
+  await Apartment.find({ realtor: req.profile._id })
+    .populate('realtor', '_id name')
+    .sort('_created')
+    .exec((error, apartments) => {
+      if (error) {
+        return res.status(400).json({ error });
+      }
+      res.status(200).json(apartments);
+    });
+};

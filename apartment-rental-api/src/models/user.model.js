@@ -18,13 +18,6 @@ const userSchema = new mongoose.Schema({
     required: true,
   },
 
-  apartments: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Apartment',
-    },
-  ],
-
   salt: String,
 
   created: {
