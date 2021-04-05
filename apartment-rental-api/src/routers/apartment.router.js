@@ -1,15 +1,14 @@
 import express from 'express';
-import apartmentControllers from '../controllers/apartment.controller';
-import { requireSignin } from '../controllers/auth.controller';
-import { userById } from '../controllers/user.controller';
-const {
+import {
   apartmentById,
   createApartment,
-  getSingleApartment,
-  updateSingleApartment,
   deleteSingleApartment,
   getAllApartment,
-} = apartmentControllers;
+  getSingleApartment,
+  updateSingleApartment,
+} from '../controllers/apartment.controller';
+import { requireSignin } from '../controllers/auth.controller';
+import { userById } from '../controllers/user.controller';
 
 const router = express.Router();
 

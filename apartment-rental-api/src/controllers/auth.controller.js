@@ -5,7 +5,7 @@ dotenv.config();
 import expressJwt from 'express-jwt';
 // const { sendEmail } = require('../helpers');
 
-const signUp = async (req, res) => {
+export const signUp = async (req, res) => {
   const newUser = await User.create(req.body);
 
   await newUser.save((error, user) => {
@@ -20,7 +20,7 @@ const signUp = async (req, res) => {
   });
 };
 
-const signIn = async (req, res) => {
+export const signIn = async (req, res) => {
   // found the user based on email
   const { email, password } = req.body;
   await User.findOne({ email }, (error, user) => {
@@ -53,7 +53,7 @@ const signIn = async (req, res) => {
   });
 };
 
-const signOut = async (req, res) => {
+export const signOut = async (req, res) => {
   await res.clearCookie('t');
   return res.status(200).json({ message: 'Signout success!' });
 };
@@ -65,13 +65,6 @@ export const requireSignin = expressJwt({
   algorithms: ['HS256'],
   userProperty: 'auth',
 });
-
-export default {
-  signUp,
-  signIn,
-  signOut,
-  requireSignin,
-};
 
 // add forgotPassword and resetPassword methods
 // exports.forgotPassword = (req, res) => {

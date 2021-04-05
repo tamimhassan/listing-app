@@ -1,6 +1,6 @@
 import { Apartment } from '../models/apartment.model';
 
-const createApartment = async (req, res) => {
+export const createApartment = async (req, res) => {
   const apartment = await Apartment.create(req.body);
 
   apartment.save((error, result) => {
@@ -13,7 +13,7 @@ const createApartment = async (req, res) => {
   });
 };
 
-const apartmentById = async (req, res, next, id) => {
+export const apartmentById = async (req, res, next, id) => {
   await Apartment.findById(id).exec((error, apartment) => {
     if (error || !apartment) {
       return res.status(400).json({
@@ -28,7 +28,7 @@ const apartmentById = async (req, res, next, id) => {
   });
 };
 
-const getSingleApartment = (req, res) => {
+export const getSingleApartment = (req, res) => {
   if (!req.apartment) {
     return res.status(400).json({
       error: 'apartment is not found.',
@@ -39,7 +39,7 @@ const getSingleApartment = (req, res) => {
   });
 };
 
-const updateSingleApartment = async (req, res) => {
+export const updateSingleApartment = async (req, res) => {
   await Apartment.findByIdAndUpdate(
     { _id: req.params.apartmentId },
     { ...req.body, updated: Date.now() },
@@ -50,13 +50,11 @@ const updateSingleApartment = async (req, res) => {
         error: "Can't update!",
       });
     }
-    res.status(200).json({
-      apartment,
-    });
+    res.status(200).json({ apartment });
   });
 };
 
-const deleteSingleApartment = async (req, res) => {
+export const deleteSingleApartment = async (req, res) => {
   await Apartment.findByIdAndRemove(req.params.apartmentId).exec(
     (error, deletedApartment) => {
       if (error || !deletedApartment) {
@@ -71,7 +69,7 @@ const deleteSingleApartment = async (req, res) => {
   );
 };
 
-const getAllApartment = async (req, res) => {
+export const getAllApartment = async (req, res) => {
   await Apartment.find().exec((error, result) => {
     if (error) {
       return res.status(400).json({
@@ -82,13 +80,4 @@ const getAllApartment = async (req, res) => {
       data: result,
     });
   });
-};
-
-export default {
-  getSingleApartment,
-  apartmentById,
-  createApartment,
-  updateSingleApartment,
-  deleteSingleApartment,
-  getAllApartment,
 };
