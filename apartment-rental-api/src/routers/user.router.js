@@ -6,6 +6,7 @@ import {
   getSingleUser,
   updateSingleUser,
   hasAuthorization,
+  deleteSingleUser,
 } from '../controllers/user.controller';
 const router = express.Router();
 
@@ -14,7 +15,7 @@ router
   .route('/user/:userId')
   .get(getSingleUser)
   .put(requireSignin, hasAuthorization, updateSingleUser)
-  .delete();
+  .delete(requireSignin, hasAuthorization, deleteSingleUser);
 
 // any route containing :userId our app will first execute userById()
 router.param('userId', userById);

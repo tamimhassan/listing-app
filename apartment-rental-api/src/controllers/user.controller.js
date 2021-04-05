@@ -65,3 +65,16 @@ export const updateSingleUser = async (req, res) => {
     res.status(200).json({ user });
   });
 };
+
+export const deleteSingleUser = async (req, res) => {
+  await User.findByIdAndRemove(req.profile._id).exec((error, deletedUser) => {
+    if (error || !deletedUser) {
+      return res.status(400).json({
+        error: error,
+      });
+    }
+    res.status(200).json({
+      message: 'User delete Successfilly.',
+    });
+  });
+};
