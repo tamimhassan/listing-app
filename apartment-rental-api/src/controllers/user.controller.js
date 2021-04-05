@@ -48,3 +48,21 @@ export const getSingleUser = async (req, res) => {
     user: req.profile,
   });
 };
+
+export const updateSingleUser = async (req, res) => {
+  await User.findByIdAndUpdate(
+    { _id: req.profile._id },
+    { ...req.body, updated: Date.now() },
+    { new: true },
+  ).exec((error, user) => {
+    if (error || !user) {
+      return res.status(400).json({
+        error: 'You are not authorized to perform this action',
+      });
+    }
+
+    user.hashed_password = undefined;
+    user.salt = undefined;
+    res.status(200).json({ user });
+  });
+};
