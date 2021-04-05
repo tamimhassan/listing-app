@@ -1,0 +1,12 @@
+{
+  "/": "api docs",
+  "/signup": "signup",
+  "/signin": "signin",
+  "/signout": "signup",
+  "/users": "get all users",
+  "/user/:userId": ["get user", "update user", "delete user"],
+  "/apartments": "get all apartments",
+  "/apartment/new/:userId": "create new apartment",
+  "/apartments/:userId": "get apartments by user",
+  "/apartment/:id": ["get apartment", "update apartment", "delete apartment"]
+}

@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
 import mongoose from 'mongoose';
 import cors from 'cors';
+import fs from 'fs';
 
 dotenv.config();
 const app = express();
@@ -26,6 +27,19 @@ mongoose.connection.on('error', (err) => {
 import apartmentRoutes from './src/routers/apartment.router';
 import authRoutes from './src/routers/auth.router';
 import userRoutes from './src/routers/user.router';
+
+// apiDocs
+app.get('/', (req, res) => {
+  fs.readFile('./docs/apiDocs.json', (err, data) => {
+    if (err) {
+      return res.status(400).json({
+        error: err,
+      });
+    }
+    const docs = JSON.parse(data);
+    res.json(docs);
+  });
+});
 
 // Middleware
 app.use(cors());
