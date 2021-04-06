@@ -1,4 +1,6 @@
 import { User } from '../models/user.model';
+import formidable from 'formidable';
+import fs from 'fs';
 
 export const userById = async (req, res, next, id) => {
   await User.findById(id).exec((error, user) => {
@@ -49,21 +51,44 @@ export const getSingleUser = async (req, res) => {
 };
 
 export const updateSingleUser = async (req, res) => {
-  await User.findByIdAndUpdate(
-    { _id: req.profile._id },
-    { ...req.body, updated: Date.now() },
-    { new: true },
-  ).exec((error, user) => {
-    if (error || !user) {
+  let form = await new formidable.IncomingForm();
+  form.keepExtensions = true;
+  form.parse(req, async (error, fields, files) => {
+    if (error) {
       return res.status(400).json({
-        error: 'You are not authorized to perform this action',
+        error: 'Image could not be uploaded',
       });
     }
 
-    user.hashed_password = undefined;
-    user.salt = undefined;
-    res.status(200).json({ user });
+    await User.findByIdAndUpdate(
+      { _id: req.profile._id },
+      { ...fields, updated: Date.now() },
+      { new: true },
+    ).exec((error, user) => {
+      if (files.photo) {
+        user.photo.data = fs.readFileSync(files.photo.path);
+        user.photo.contentType = files.photo.type;
+      }
+
+      if (error || !user) {
+        return res.status(400).json({
+          error: 'You are not authorized to perform this action',
+        });
+      }
+
+      user.hashed_password = undefined;
+      user.salt = undefined;
+      res.status(200).json(user);
+    });
   });
+};
+
+export const userPhoto = async (req, res, next) => {
+  if (req.profile.photo.data) {
+    await res.set(('Content-Type', req.profile.photo.contentType));
+    return res.send(req.profile.photo.data);
+  }
+  next();
 };
 
 export const deleteSingleUser = async (req, res) => {

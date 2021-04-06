@@ -85,8 +85,8 @@ export const updateSingleApartment = async (req, res) => {
       .populate('realtor', '_id name')
       .exec((error, apartment) => {
         if (files.photo) {
-          post.photo.data = fs.readFileSync(files.photo.path);
-          post.photo.contentType = files.photo.type;
+          apartment.photo.data = fs.readFileSync(files.photo.path);
+          apartment.photo.contentType = files.photo.type;
         }
 
         if (error || !apartment) {

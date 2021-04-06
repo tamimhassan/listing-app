@@ -20,6 +20,11 @@ const userSchema = new mongoose.Schema({
 
   salt: String,
 
+  photo: {
+    data: Buffer,
+    contentType: String,
+  },
+
   created: {
     type: Date,
     default: Date.now,
