@@ -1,4 +1,4 @@
-import { body, validationResult } from 'express-validator';
+import { body, check, validationResult } from 'express-validator';
 import { User } from '../models/user.model';
 
 export const signUpValidator = () => {
@@ -43,6 +43,38 @@ export const signUpValidator = () => {
       .withMessage('Password must contain a character'),
   ];
 };
+
+// export const apartmentCreateValidation = () => {
+//   return [
+//     body('name')
+//       .not()
+//       .trim()
+//       .isEmpty()
+//       .withMessage('Name is required!')
+//       .isLength({ min: 3 })
+//       .withMessage('Name must contain 3 characters.'),
+
+//     body('description')
+//       .not()
+//       .trim()
+//       .isEmpty()
+//       .withMessage('Description is required!')
+//       .isLength({ min: 5 })
+//       .withMessage('Description must contain 5 characters.'),
+
+//     body('floor_size')
+//       .not()
+//       .trim()
+//       .isEmpty()
+//       .withMessage('Floor size is required!'),
+
+//     body('price_per_month')
+//       .not()
+//       .trim()
+//       .isEmpty()
+//       .withMessage('Price per month is required!'),
+//   ];
+// };
 
 export const validate = (req, res, next) => {
   const errors = validationResult(req);

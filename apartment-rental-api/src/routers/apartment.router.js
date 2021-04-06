@@ -9,19 +9,20 @@ import {
   isPoster,
   updateSingleApartment,
 } from '../controllers/apartment.controller';
+// import { apartmentCreateValidation, validate } from '../validator';
 import { requireSignin } from '../controllers/auth.controller';
 import { userById } from '../controllers/user.controller';
 
 const router = express.Router();
 
-router.route('/apartment/new/:userId').post(requireSignin, createApartment);
+router.route('/apartments').get(requireSignin, getAllApartment);
 router.route('/apartments/:userId').get(requireSignin, apartmentsByUser);
+router.route('/apartment/new/:userId').post(requireSignin, createApartment);
 router
   .route('/apartment/:id')
   .get(requireSignin, getSingleApartment)
   .put(requireSignin, isPoster, updateSingleApartment)
   .delete(requireSignin, isPoster, deleteSingleApartment);
-router.route('/apartments').get(requireSignin, getAllApartment);
 
 // any route containing :userId our app will first execute userById()
 router.param('userId', userById);

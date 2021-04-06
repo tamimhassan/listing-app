@@ -5,7 +5,7 @@ const apartmentSchema = new mongoose.Schema({
 
   description: String,
 
-  floor_area_size: String,
+  floor_size: String,
 
   price_per_month: String,
 
