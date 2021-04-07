@@ -11,15 +11,14 @@ cd apartment-rental-api
 yarn start
 ```
 
-##### Then open another terminal from Root Directory
+##### Then open another terminal from Root Directory & run those commend one after another 
 ```sh
 cd ApartmentRentalApp
 react-native start
 ```
-##### open another terminal (./ApartmentRentalApp) Directory
+##### open another terminal from (./ApartmentRentalApp) Directory & run 
 ```sh
 react-native run-android
-react-native run-ios 
 ```
 
 If you want to more details: https://reactnative.dev/docs/environment-setup
