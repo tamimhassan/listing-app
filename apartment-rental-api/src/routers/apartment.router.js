@@ -15,7 +15,7 @@ import { userById } from '../controllers/user.controller';
 
 const router = express.Router();
 
-router.route('/apartments').get(requireSignin, getAllApartment);
+router.route('/apartments').get(getAllApartment);
 router.route('/apartments/:userId').get(requireSignin, apartmentsByUser);
 router.route('/apartment/new/:userId').post(requireSignin, createApartment);
 router

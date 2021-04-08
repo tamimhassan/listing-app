@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
 import {StyleSheet, ScrollView} from 'react-native';
-import Contain from '../Components/Contain';
-import Container from '../Components/Container';
-import CoustomButton from '../Components/CoustomButton';
-import HorigantalRow from '../Components/HorigantalRow';
-import Input from '../Components/Input';
-import LinkText from '../Components/LinkText';
+import Contain from '../components/Contain';
+import Container from '../components/Container';
+import CoustomButton from '../components/CoustomButton';
+import HorigantalRow from '../components/HorigantalRow';
+import Input from '../components/Input';
+import LinkText from '../components/LinkText';
 
 const SignIn = ({navigation}) => {
   const [emailValue, setEmailValue] = useState('');

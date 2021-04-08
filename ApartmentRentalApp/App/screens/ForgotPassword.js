@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 import {StyleSheet, ScrollView} from 'react-native';
-import Contain from '../Components/Contain';
-import Container from '../Components/Container';
-import CoustomButton from '../Components/CoustomButton';
-import Input from '../Components/Input';
+import Contain from '../components/Contain';
+import Container from '../components/Container';
+import CoustomButton from '../components/CoustomButton';
+import Input from '../components/Input';
 
 const ForgotPassword = ({navigation}) => {
   const [emailValue, setEmailValue] = useState('');
