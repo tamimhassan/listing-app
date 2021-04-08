@@ -38,7 +38,11 @@ const SignIn = ({navigation}) => {
         <Contain>
           <CoustomButton text="Sign in" handlePress={handleSignin} />
         </Contain>
-        <LinkText text="Forgot password?" />
+        <LinkText
+          text="Forgot password?"
+          navigation={navigation}
+          navigateText="Forgot password"
+        />
       </Container>
 
       <HorigantalRow />

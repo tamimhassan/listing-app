@@ -1,9 +1,9 @@
 import React from 'react';
 import {StyleSheet, Text, TouchableWithoutFeedback, View} from 'react-native';
 
-const LinkText = ({text, underlineText, navigation}) => {
+const LinkText = ({text, underlineText, navigation, navigateText}) => {
   return (
-    <TouchableWithoutFeedback onPress={() => navigation.navigate('Sign in')}>
+    <TouchableWithoutFeedback onPress={() => navigation.navigate(navigateText)}>
       <View style={styles.view}>
         <Text style={styles.text}>{text} </Text>
         <Text style={styles.underline}>{underlineText}</Text>

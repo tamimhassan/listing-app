@@ -52,6 +52,7 @@ const SignUp = ({navigation}) => {
           text="Already have an account?"
           underlineText="Sign In"
           navigation={navigation}
+          navigateText="Sign in"
         />
       </Container>
     </ScrollView>
