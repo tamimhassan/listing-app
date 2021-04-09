@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {StyleSheet, Text, FlatList} from 'react-native';
+import {StyleSheet, FlatList} from 'react-native';
 import ApartmentPreview from '../components/ApartmentPreview';
 
 const Home = ({navigation}) => {

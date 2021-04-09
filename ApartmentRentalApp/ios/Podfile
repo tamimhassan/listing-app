@@ -12,6 +12,8 @@ target 'ApartmentRentalApp' do
     :hermes_enabled => false
   )
 
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+
   target 'ApartmentRentalAppTests' do
     inherit! :complete
     # Pods for testing
