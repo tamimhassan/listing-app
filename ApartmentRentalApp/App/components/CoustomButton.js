@@ -31,10 +31,17 @@ const styles = StyleSheet.create({
   button: {
     width: '100%',
     minWidth: 200,
-    backgroundColor: '#2196f3',
+    backgroundColor: '#2388dc',
+    // backgroundColor: 'gray',
+    // backgroundColor: '#00b386',
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 3,
+    shadowColor: 'rgba(0, 0, 0, 0.1)',
+    shadowOpacity: 0.8,
+    elevation: 6,
+    shadowRadius: 15,
+    shadowOffset: {width: 1, height: 13},
   },
   buttonText: {
     paddingHorizontal: 15,

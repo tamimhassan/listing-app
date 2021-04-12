@@ -1,15 +1,19 @@
 import React from 'react';
-import {StyleSheet, TextInput} from 'react-native';
+import {StyleSheet, TextInput, View, Text} from 'react-native';
 
-const Input = ({placeholder, valueHandle, value}) => {
-  // const [text, setText] = useState('');
+const Input = ({placeholder, valueHandle, value, label, numberOfLines}) => {
   return (
-    <TextInput
-      style={styles.input}
-      placeholder={placeholder}
-      onChangeText={v => valueHandle(v)}
-      value={value}
-    />
+    <View>
+      {/* <Text>{label}</Text> */}
+      <TextInput
+        style={styles.input}
+        placeholder={placeholder}
+        onChangeText={v => valueHandle(v)}
+        value={value}
+        numberOfLines={numberOfLines}
+        multiline={numberOfLines ? true : false}
+      />
+    </View>
   );
 };
 
@@ -20,5 +24,6 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderColor: 'gray',
     fontSize: 18,
+    justifyContent: 'flex-start',
   },
 });
