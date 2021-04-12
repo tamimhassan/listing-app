@@ -10,6 +10,8 @@ const apartmentSchema = new mongoose.Schema({
 
   price_per_month: String,
 
+  room: Number,
+
   // address: {
   //   type: String,
   //   required: [true, 'Please add an address'],

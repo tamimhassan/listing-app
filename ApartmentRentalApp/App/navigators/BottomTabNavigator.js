@@ -1,36 +1,32 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+// import {View, Text} from 'react-native';
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 import Feed from '../screens/Feed';
+import {ProfileStackScreen} from '../navigators/StackNavigator';
 
 const Tab = createMaterialBottomTabNavigator();
 
-function DetailsScreen() {
-  return (
-    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-      <Text>Details Screen</Text>
-    </View>
-  );
-}
-
 function BottomTabNavigator() {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator initialRouteName="ProfileStackScreen">
       <Tab.Screen
         name="feed"
         component={Feed}
         options={{
           tabBarLabel: 'Feed',
-          tabBarIcon: ({color}) => <Icon name="home" color={color} size={26} />,
+          tabBarIcon: ({color}) => (
+            <FontAwesome name="home" color={color} size={26} />
+          ),
         }}
       />
       <Tab.Screen
-        name="DetailsScreen"
-        component={DetailsScreen}
+        name="ProfileStackScreen"
+        component={ProfileStackScreen}
         options={{
           tabBarLabel: 'Profile',
-          tabBarIcon: ({color}) => <Icon name="bell" color={color} size={26} />,
+          tabBarIcon: ({color}) => <Icon name="user" color={color} size={26} />,
         }}
       />
     </Tab.Navigator>

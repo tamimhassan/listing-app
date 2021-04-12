@@ -6,10 +6,13 @@ import SignUp from '../screens/SignUp';
 import ForgotPassword from '../screens/ForgotPassword';
 
 import Home from '../screens/Home';
+import Profile from '../screens/Profile';
 import Apartment from '../screens/Apartment';
+import CreateApartment from '../screens/CreateApartment';
 
 const Stack = createStackNavigator();
 const HomeStack = createStackNavigator();
+const ProfileStack = createStackNavigator();
 
 const SigninAndSignupStack = () => {
   return (
@@ -34,4 +37,21 @@ const HomeStackScreen = () => {
   );
 };
 
-export {SigninAndSignupStack, HomeStackScreen};
+const ProfileStackScreen = () => {
+  return (
+    <ProfileStack.Navigator>
+      <ProfileStack.Screen
+        name="profile"
+        component={Profile}
+        options={{title: 'Profile'}}
+      />
+      <ProfileStack.Screen
+        name="CreateApartment"
+        component={CreateApartment}
+        options={{title: 'Create Apartment'}}
+      />
+    </ProfileStack.Navigator>
+  );
+};
+
+export {SigninAndSignupStack, HomeStackScreen, ProfileStackScreen};
