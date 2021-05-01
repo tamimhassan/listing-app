@@ -27,7 +27,8 @@ export const signIn = async (req, res) => {
     // Checking whether email is exist or not
     if (error || !user) {
       return res.status(401).json({
-        error: "User with this e-mail doesn't exist, Please signup.",
+        error:
+          "User with this e-mail doesn't exist! Please create a account or enter correct e-mail.",
       });
     }
 

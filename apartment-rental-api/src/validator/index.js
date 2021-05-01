@@ -9,7 +9,7 @@ export const signUpValidator = () => {
       .isEmpty()
       .withMessage('Name is required!')
       .isLength({ min: 3 })
-      .withMessage('Minimum 3 characters.'),
+      .withMessage('Name length minimum 3 characters.'),
 
     body('email')
       .not()
