@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 dotenv.config();
 import expressJwt from 'express-jwt';
-// const { sendEmail } = require('../helpers');
+import nodeMailer from 'nodemailer';
 
 export const signUp = async (req, res) => {
   const newUser = await User.create(req.body);
@@ -67,6 +67,50 @@ export const requireSignin = expressJwt({
   userProperty: 'auth',
 });
 
+const sendEmail = (emailData) => {
+  const transporter = nodeMailer.createTransport({
+    host: 'smtp.gmail.com',
+    port: 587,
+    secure: false,
+    requireTLS: true,
+    auth: {
+      user: process.env.EMAIL,
+      pass: process.env.PASS,
+    },
+  });
+  return transporter
+    .sendMail(emailData)
+    .then((info) => console.log(`Message sent: ${info.response}`))
+    .catch((err) => console.log(`Problem sending email: ${err}`));
+};
+
+export const forgotPassword = async (req, res) => {
+  if (!req.body) return res.status(400).json({ error: 'No request body' });
+  if (!req.body.email)
+    return res.status(400).json({ error: 'No Email in request body' });
+
+  const { email } = req.body;
+
+  await User.findOne({ email }, (err, user) => {
+    if (err || !user)
+      return res.status('401').json({
+        error: 'User with that email does not exist!',
+      });
+
+    // Generate a six digit number
+    const KEY = Math.floor(100000 + Math.random() * 900000);
+
+    const emailData = {
+      from: 'noreply@node-react.com',
+      to: email,
+      subject: 'Password Reset Instructions',
+      text: `Please use the following kEY to reset your password: `,
+      html: `<h2>KEY- ${KEY}</h2>`,
+    };
+    sendEmail(emailData);
+    return res.status(200).json({ key: KEY.toString() });
+  });
+};
 // add forgotPassword and resetPassword methods
 // exports.forgotPassword = (req, res) => {
 //   if (!req.body) return res.status(400).json({ message: 'No request body' });
