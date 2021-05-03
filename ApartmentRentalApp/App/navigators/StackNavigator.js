@@ -3,6 +3,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 
 import SignIn from '../screens/SignIn';
 import SignUp from '../screens/SignUp';
+import ResetPassword from '../screens/ResetPassword';
 import ForgotPassword from '../screens/ForgotPassword';
 
 import Home from '../screens/Home';
@@ -16,10 +17,11 @@ const ProfileStack = createStackNavigator();
 
 const SigninAndSignupStack = () => {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator headerMode={'none'}>
       <Stack.Screen name="Sign in" component={SignIn} />
       <Stack.Screen name="Sign up" component={SignUp} />
       <Stack.Screen name="Forgot password" component={ForgotPassword} />
+      <Stack.Screen name="Reset password" component={ResetPassword} />
     </Stack.Navigator>
   );
 };
