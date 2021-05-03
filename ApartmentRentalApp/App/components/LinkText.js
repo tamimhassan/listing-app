@@ -1,10 +1,18 @@
 import React from 'react';
 import {StyleSheet, Text, TouchableWithoutFeedback, View} from 'react-native';
 
-const LinkText = ({text, underlineText, navigation, navigateText}) => {
+const LinkText = ({text, float, underlineText, navigation, navigateText}) => {
+  const propsStyle = {
+    justifyContent:
+      float === 'right'
+        ? 'flex-end'
+        : float === 'left'
+        ? 'flex-start'
+        : 'center',
+  };
   return (
     <TouchableWithoutFeedback onPress={() => navigation.navigate(navigateText)}>
-      <View style={styles.view}>
+      <View style={[styles.view, propsStyle]}>
         <Text style={styles.text}>{text} </Text>
         <Text style={styles.underline}>{underlineText}</Text>
       </View>
