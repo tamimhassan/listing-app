@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 import expressJwt from 'express-jwt';
 import nodeMailer from 'nodemailer';
+import crypto from 'crypto';
 
 export const signUp = async (req, res) => {
   const newUser = await User.create(req.body);
@@ -108,9 +109,45 @@ export const forgotPassword = async (req, res) => {
       html: `<h2>KEY- ${KEY}</h2>`,
     };
     sendEmail(emailData);
-    return res.status(200).json({ key: KEY.toString() });
+    return res.status(200).json({ key: KEY.toString(), user });
   });
 };
+
+export const resetPassword = async (req, res) => {
+  const { email, password, salt } = req.body;
+  const encryptPassword = (password, salt) => {
+    if (!password) return '';
+    try {
+      return crypto.createHmac('sha256', salt).update(password).digest('hex');
+    } catch (error) {
+      return '';
+    }
+  };
+
+  await User.findOneAndUpdate(
+    { email },
+    {
+      hashed_password: encryptPassword(password, salt),
+      updated: Date.now(),
+    },
+    { new: true },
+  ).exec((error, user) => {
+    if (error || !user) {
+      return res.status(400).json({
+        error: 'You are not authorized to perform this action',
+      });
+    }
+    console.log(user);
+
+    user.hashed_password = undefined;
+    user.salt = undefined;
+    res.status(200).json({
+      user,
+      message: 'Great! Now you can signin with your new password.',
+    });
+  });
+};
+
 // add forgotPassword and resetPassword methods
 // exports.forgotPassword = (req, res) => {
 //   if (!req.body) return res.status(400).json({ message: 'No request body' });

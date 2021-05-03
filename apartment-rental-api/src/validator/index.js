@@ -44,6 +44,23 @@ export const signUpValidator = () => {
   ];
 };
 
+export const resetPasswordValidation = () => {
+  return [
+    body('password')
+      .not()
+      .isEmpty()
+      .withMessage('password is required!')
+      .isLength({ min: 6 })
+      .withMessage('Password must contain at least 6 characters')
+      .not()
+      .isIn(['123456', '654321, 12345678, 87654321'])
+      .withMessage('Do not use a common word as the password')
+      .matches(/\d/)
+      .withMessage('Password must contain a number')
+      .matches(/[a-zA-Z]/)
+      .withMessage('Password must contain a character'),
+  ];
+};
 // export const apartmentCreateValidation = () => {
 //   return [
 //     body('name')

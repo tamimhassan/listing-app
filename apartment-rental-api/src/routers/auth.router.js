@@ -1,10 +1,15 @@
 import express from 'express';
 import { userById } from '../controllers/user.controller';
-import { signUpValidator, validate } from '../validator';
+import {
+  signUpValidator,
+  resetPasswordValidation,
+  validate,
+} from '../validator';
 import {
   signIn,
   signUp,
   signOut,
+  resetPassword,
   forgotPassword,
 } from '../controllers/auth.controller';
 
@@ -15,6 +20,12 @@ router.post('/signin', signIn);
 router.get('/signout', signOut);
 
 router.post('/forgot-password', forgotPassword);
+router.post(
+  '/reset-password',
+  resetPasswordValidation(),
+  validate,
+  resetPassword,
+);
 
 // any route containing :userId our app will first execute userById()
 router.param('userId', userById);
