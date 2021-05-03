@@ -3,6 +3,7 @@ import {TextInput} from 'react-native-paper';
 import FontAwesome from 'react-native-vector-icons/FontAwesome5';
 
 const NewInput = ({
+  takeNumberFromKeyboard,
   label,
   placeholder,
   numberOfLines,
@@ -29,6 +30,7 @@ const NewInput = ({
       placeholder={placeholder}
       secureTextEntry={password ? secure : undefined}
       multiline={numberOfLines ? true : false}
+      keyboardType={takeNumberFromKeyboard ? 'numeric' : 'default'}
       numberOfLines={numberOfLines}
       left={
         <TextInput.Icon
