@@ -5,6 +5,8 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome5';
 const NewInput = ({
   takeNumberFromKeyboard,
   label,
+  fontSize,
+  fontColor,
   placeholder,
   numberOfLines,
   iconName,
@@ -16,18 +18,26 @@ const NewInput = ({
   rightIconColor,
   handleRigntIconClick,
   password,
+  location,
+  showMap,
   value,
   valueHandle,
 }) => {
   const [secure, setSecure] = React.useState(true);
+  const inputStyle = {
+    fontSize: fontSize ? fontSize : 16,
+    color: fontColor ? fontColor : 'black',
+  };
 
   return (
     <TextInput
+      style={inputStyle}
       onChangeText={v => valueHandle(v)}
       value={value}
       mode="outlined"
       label={label}
       placeholder={placeholder}
+      onFocus={location ? showMap : undefined}
       secureTextEntry={password ? secure : undefined}
       multiline={numberOfLines ? true : false}
       keyboardType={takeNumberFromKeyboard ? 'numeric' : 'default'}
