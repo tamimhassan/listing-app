@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
 import {StyleSheet, ScrollView, Alert, View, Text} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Div from '../components/Div';
 import RNRestart from 'react-native-restart';
-import Contain from '../components/Contain';
-import Container from '../components/Container';
-import CoustomButton from '../components/CoustomButton';
 import LinkText from '../components/LinkText';
 import NewInput from '../components/NewInput';
+import Container from '../components/Container';
+import CoustomButton from '../components/CoustomButton';
 
 const SignIn = ({navigation}) => {
   const [emailValue, setEmailValue] = useState('');
@@ -32,6 +32,7 @@ const SignIn = ({navigation}) => {
         }
         try {
           await AsyncStorage.setItem('token', data.token);
+          await AsyncStorage.setItem('userId', data.user._id);
           RNRestart.Restart();
         } catch (e) {
           console.log('error: ', e);
@@ -44,9 +45,9 @@ const SignIn = ({navigation}) => {
       <View style={styles.headerContainder}>
         <Text style={styles.headerText}>Sign In</Text>
       </View>
-      <View style={styles.Div}>
+      <View style={styles.view}>
         <Container>
-          <Contain>
+          <Div mv={10}>
             <NewInput
               label="Email"
               value={emailValue}
@@ -55,8 +56,8 @@ const SignIn = ({navigation}) => {
               iconSize={20}
               iconcolor="#ff0000"
             />
-          </Contain>
-          <Contain>
+          </Div>
+          <Div mv={10}>
             <NewInput
               label="Password"
               value={passwordValue}
@@ -66,26 +67,26 @@ const SignIn = ({navigation}) => {
               iconcolor="#ff0000"
               password
             />
-          </Contain>
+          </Div>
           <LinkText
             text="Forgot password?"
             navigation={navigation}
             navigateText="Forgot password"
             float="right"
           />
-          <Contain>
+          <Div mv={10}>
             <CoustomButton text="Sign in" handlePress={handleSignin} />
-          </Contain>
+          </Div>
         </Container>
       </View>
-      <Contain p={10} bg="white">
+      <Div mv={10} mb={50} p={10} bg>
         <LinkText
           text="You have no account?"
           underlineText="Sign Up"
           navigation={navigation}
           navigateText="Sign up"
         />
-      </Contain>
+      </Div>
     </ScrollView>
   );
 };
@@ -94,7 +95,7 @@ export default SignIn;
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: '10%',
+    paddingVertical: '10%',
     backgroundColor: 'orange',
   },
   headerContainder: {
@@ -105,7 +106,7 @@ const styles = StyleSheet.create({
     fontSize: 22,
     color: 'white',
   },
-  Div: {
+  view: {
     flex: 1,
     backgroundColor: 'white',
     paddingTop: 50,

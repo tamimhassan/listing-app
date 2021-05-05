@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
 import {StyleSheet, ScrollView, View, Text, Alert} from 'react-native';
-import Contain from '../components/Contain';
-import Container from '../components/Container';
-import CoustomButton from '../components/CoustomButton';
+import Div from '../components/Div';
 import NewInput from '../components/NewInput';
 import LinkText from '../components/LinkText';
+import Container from '../components/Container';
+import CoustomButton from '../components/CoustomButton';
 
 const ForgotPassword = ({navigation}) => {
   const [emailValue, setEmailValue] = useState('');
@@ -45,9 +45,9 @@ const ForgotPassword = ({navigation}) => {
       <View style={styles.headerContainder}>
         <Text style={styles.headerText}>Forgot password</Text>
       </View>
-      <View style={styles.Div}>
+      <View style={styles.view}>
         <Container>
-          <Contain>
+          <Div mv={10}>
             <NewInput
               label="Email"
               value={emailValue}
@@ -56,15 +56,15 @@ const ForgotPassword = ({navigation}) => {
               iconSize={20}
               iconcolor="#ff0000"
             />
-          </Contain>
+          </Div>
 
-          <Contain>
+          <Div mv={10}>
             <CoustomButton text="Submit" handlePress={handleSubmit} />
-          </Contain>
+          </Div>
         </Container>
       </View>
       {keyFromBackend ? (
-        <Contain p={10} bg="white">
+        <Div mv={10} p={10} bg>
           <NewInput
             label="Key"
             value={key}
@@ -79,15 +79,15 @@ const ForgotPassword = ({navigation}) => {
             rightIconSize={24}
             handleRigntIconClick={handleKeySubmit}
           />
-        </Contain>
+        </Div>
       ) : undefined}
-      <Contain p={10} bg="white">
+      <Div mv={10} mb={50} p={10} bg>
         <LinkText
           text="Back to sign in"
           navigation={navigation}
           navigateText="Sign in"
         />
-      </Contain>
+      </Div>
     </ScrollView>
   );
 };
@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
     fontSize: 22,
     color: 'white',
   },
-  Div: {
+  view: {
     flex: 1,
     backgroundColor: 'white',
     paddingTop: 50,

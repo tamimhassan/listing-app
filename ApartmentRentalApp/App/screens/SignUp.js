@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
 import {StyleSheet, ScrollView, Alert, View, Text} from 'react-native';
-import Contain from '../components/Contain';
-import Container from '../components/Container';
-import CoustomButton from '../components/CoustomButton';
+import Div from '../components/Div';
 import NewInput from '../components/NewInput';
 import LinkText from '../components/LinkText';
+import Container from '../components/Container';
+import CoustomButton from '../components/CoustomButton';
 
 const SignUp = ({navigation}) => {
   const [nameValue, setNameValue] = useState('');
@@ -42,9 +42,9 @@ const SignUp = ({navigation}) => {
       <View style={styles.headerContainder}>
         <Text style={styles.headerText}>Create account</Text>
       </View>
-      <View style={styles.Div}>
+      <View style={styles.view}>
         <Container>
-          <Contain>
+          <Div mv={10}>
             <NewInput
               label="Name"
               value={nameValue}
@@ -53,8 +53,8 @@ const SignUp = ({navigation}) => {
               iconSize={20}
               iconcolor="#ff0000"
             />
-          </Contain>
-          <Contain>
+          </Div>
+          <Div mv={10}>
             <NewInput
               label="Email"
               value={emailValue}
@@ -63,8 +63,8 @@ const SignUp = ({navigation}) => {
               iconSize={20}
               iconcolor="#ff0000"
             />
-          </Contain>
-          <Contain>
+          </Div>
+          <Div mv={10}>
             <NewInput
               label="Password"
               value={passwordValue}
@@ -74,20 +74,20 @@ const SignUp = ({navigation}) => {
               iconcolor="#ff0000"
               password
             />
-          </Contain>
-          <Contain>
+          </Div>
+          <Div mv={10}>
             <CoustomButton text="Sign up" handlePress={handleSignUp} />
-          </Contain>
+          </Div>
         </Container>
       </View>
-      <Contain p={10} bg="white">
+      <Div mv={10} mb={50} p={10} bg style={styles.div}>
         <LinkText
           text="Already have an account?"
           underlineText="Sign In"
           navigation={navigation}
           navigateText="Sign in"
         />
-      </Contain>
+      </Div>
     </ScrollView>
   );
 };
@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
     fontSize: 22,
     color: 'white',
   },
-  Div: {
+  view: {
     flex: 1,
     backgroundColor: 'white',
     paddingTop: 50,

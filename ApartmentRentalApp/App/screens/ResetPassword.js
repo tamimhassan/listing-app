@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
 import {StyleSheet, ScrollView, View, Text, Alert} from 'react-native';
-import Contain from '../components/Contain';
-import Container from '../components/Container';
-import CoustomButton from '../components/CoustomButton';
+import Div from '../components/Div';
 import NewInput from '../components/NewInput';
 import LinkText from '../components/LinkText';
+import Container from '../components/Container';
+import CoustomButton from '../components/CoustomButton';
 
 const ResetPassword = ({navigation, route}) => {
   const [newPassword1, setNewPassword1] = useState('');
@@ -49,9 +49,9 @@ const ResetPassword = ({navigation, route}) => {
       <View style={styles.headerContainder}>
         <Text style={styles.headerText}>Reset password</Text>
       </View>
-      <View style={styles.Div}>
+      <View style={styles.view}>
         <Container>
-          <Contain>
+          <Div mv={10}>
             <NewInput
               label="New Password"
               value={newPassword1}
@@ -61,8 +61,8 @@ const ResetPassword = ({navigation, route}) => {
               iconcolor="#ff0000"
               password
             />
-          </Contain>
-          <Contain>
+          </Div>
+          <Div mv={10}>
             <NewInput
               label="Confirm New Password"
               value={newPassword2}
@@ -72,21 +72,21 @@ const ResetPassword = ({navigation, route}) => {
               iconcolor="#ff0000"
               password
             />
-          </Contain>
+          </Div>
 
-          <Contain>
+          <Div mv={10}>
             <CoustomButton text="Confirm" handlePress={handleConfirm} />
-          </Contain>
+          </Div>
         </Container>
       </View>
 
-      <Contain p={10} bg="white">
+      <Div mv={10} mb={50} p={10} bg>
         <LinkText
           text="Back to sign in"
           navigation={navigation}
           navigateText="Sign in"
         />
-      </Contain>
+      </Div>
     </ScrollView>
   );
 };
@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
     fontSize: 22,
     color: 'white',
   },
-  Div: {
+  view: {
     flex: 1,
     backgroundColor: 'white',
     paddingTop: 50,
