@@ -15,9 +15,7 @@ const InputIncDecNum = ({value, valueHandle, title}) => {
         <Text style={styles.text}>{value}</Text>
         <TouchableWithoutFeedback onPress={() => valueHandle(value + 1)}>
           <View style={styles.icon}>
-            <View>
-              <Text style={styles.iconText}>+</Text>
-            </View>
+            <Text style={styles.iconText}>+</Text>
           </View>
         </TouchableWithoutFeedback>
       </View>
@@ -29,12 +27,9 @@ export default InputIncDecNum;
 
 const styles = StyleSheet.create({
   inputContainer: {
-    borderBottomWidth: 1,
-    borderColor: 'gray',
     flexDirection: 'row',
     alignItems: 'center',
-    // paddingHorizontal: 5,
-    paddingVertical: 15,
+    paddingVertical: 10,
     width: '100%',
   },
   input: {
@@ -43,25 +38,22 @@ const styles = StyleSheet.create({
     textAlign: 'right',
   },
   icon: {
-    marginHorizontal: 12,
-    borderWidth: 2,
-    // flexDirection: 'row',
+    marginHorizontal: 25,
+    borderWidth: 1,
+    borderColor: '#ff0000',
     alignItems: 'center',
     justifyContent: 'center',
-    // height: 40,
-    width: 40,
-    // paddingHorizontal: 12,
-    // paddingVertical: ,
-    borderRadius: 40,
+    width: 42,
+    borderRadius: 42,
   },
   title: {
     flex: 1,
   },
   iconText: {
+    color: '#ff0000',
     fontSize: 30,
-    fontWeight: 'bold',
   },
   text: {
-    fontSize: 18,
+    fontSize: 17,
   },
 });
