@@ -79,7 +79,7 @@ const SignIn = ({navigation}) => {
           </Div>
         </Container>
       </View>
-      <Div mv={10} mb={50} p={10} bg>
+      <Div mv={10} mb={50} p={10}>
         <LinkText
           text="You have no account?"
           underlineText="Sign Up"

@@ -81,7 +81,7 @@ const ForgotPassword = ({navigation}) => {
           />
         </Div>
       ) : undefined}
-      <Div mv={10} mb={50} p={10} bg>
+      <Div mv={10} mb={50} p={10}>
         <LinkText
           text="Back to sign in"
           navigation={navigation}

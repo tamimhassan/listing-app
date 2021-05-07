@@ -80,7 +80,7 @@ const SignUp = ({navigation}) => {
           </Div>
         </Container>
       </View>
-      <Div mv={10} mb={50} p={10} bg style={styles.div}>
+      <Div mv={10} mb={50} p={10}>
         <LinkText
           text="Already have an account?"
           underlineText="Sign In"
