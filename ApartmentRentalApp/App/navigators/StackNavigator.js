@@ -6,13 +6,14 @@ import SignUp from '../screens/SignUp';
 import ResetPassword from '../screens/ResetPassword';
 import ForgotPassword from '../screens/ForgotPassword';
 
-import Home from '../screens/Home';
+import Feed from '../screens/Feed';
 import Profile from '../screens/Profile';
 import Apartment from '../screens/Apartment';
 import CreateApartment from '../screens/CreateApartment';
+import Settings from '../screens/Settings';
 
 const Stack = createStackNavigator();
-const HomeStack = createStackNavigator();
+const FeedStack = createStackNavigator();
 const ProfileStack = createStackNavigator();
 
 const SigninAndSignupStack = () => {
@@ -26,16 +27,20 @@ const SigninAndSignupStack = () => {
   );
 };
 
-const HomeStackScreen = () => {
+const FeedStackScreen = () => {
   return (
-    <HomeStack.Navigator>
-      <HomeStack.Screen name="Home" component={Home} />
-      <HomeStack.Screen
+    <FeedStack.Navigator>
+      <FeedStack.Screen
+        name="feed"
+        component={Feed}
+        options={{headerShown: false}}
+      />
+      <FeedStack.Screen
         name="Apartment"
         component={Apartment}
         options={({route}) => ({title: route.params.name})}
       />
-    </HomeStack.Navigator>
+    </FeedStack.Navigator>
   );
 };
 
@@ -48,12 +53,13 @@ const ProfileStackScreen = () => {
         options={{title: 'Profile'}}
       />
       <ProfileStack.Screen
-        name="CreateApartment"
+        name="createApartment"
         component={CreateApartment}
         options={{title: 'Create Apartment'}}
       />
+      <ProfileStack.Screen name="settings" component={Settings} />
     </ProfileStack.Navigator>
   );
 };
 
-export {SigninAndSignupStack, HomeStackScreen, ProfileStackScreen};
+export {SigninAndSignupStack, FeedStackScreen, ProfileStackScreen};
