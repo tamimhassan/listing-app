@@ -1,11 +1,14 @@
-import React, {useState} from 'react';
-import {StyleSheet, ScrollView} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {StyleSheet, ScrollView, Alert} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import Container from '../components/Container';
 import CoustomButton from '../components/CoustomButton';
 import InputIncDecNum from '../components/InputIncDecNum';
 import NewInput from '../components/NewInput';
 import MapLocationPick from '../components/MapLocationPick';
 import Div from '../components/Div';
+
+import {BASE_URL} from '../enviro';
 
 const CreateApartment = ({navigation}) => {
   const [name, setName] = useState('');
@@ -26,27 +29,53 @@ const CreateApartment = ({navigation}) => {
     setShowMap(true);
   };
 
-  const handleCreate = () => {
+  const sendData = async (apartment, userId) => {
+    await fetch(`${BASE_URL}/apartment/new/${userId}`, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(apartment),
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data.error) {
+          Alert.alert('Error', data.error);
+        } else {
+          console.log('Apartment created!');
+          navigation.navigate('feed');
+        }
+      })
+      .catch(error => {
+        console.log(
+          'There has been a problem with your fetch operation: ' +
+            error.message,
+        );
+      });
+  };
+
+  const handleCreate = async () => {
     const apartment = {
       name: name.trim(),
-      description: description.trim(),
-      room,
-      floor_size: floorSize,
-      price_per_month: price,
-      address,
+      floor_size: floorSize.trim(),
+      price_per_month: price.trim(),
+      room: room,
       location: {
-        latitude: region.latitude,
-        longitude: region.longitude,
+        geolocation: {
+          coordinates: [region.longitude, region.latitude],
+        },
+        formattedAddress: address.trim(),
       },
+      description: description.trim(),
     };
 
-    console.log(apartment);
-    // setName('');
-    // setRoom(0);
-    // setfloorSize('');
-    // setPrice('');
-    // setAddress('');
-    // setDescription('');
+    try {
+      const userId = await AsyncStorage.getItem('userId');
+      sendData(apartment, userId);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return showMap ? (

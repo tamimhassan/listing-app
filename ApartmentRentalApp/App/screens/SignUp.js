@@ -6,6 +6,8 @@ import LinkText from '../components/LinkText';
 import Container from '../components/Container';
 import CoustomButton from '../components/CoustomButton';
 
+import {BASE_URL} from '../enviro';
+
 const SignUp = ({navigation}) => {
   const [nameValue, setNameValue] = useState('');
   const [emailValue, setEmailValue] = useState('');
@@ -17,7 +19,7 @@ const SignUp = ({navigation}) => {
       email: emailValue,
       password: passwordValue,
     };
-    await fetch('http://192.168.1.14:8080/signup', {
+    await fetch(`${BASE_URL}/signup`, {
       method: 'POST',
       headers: {
         Accept: 'application/json',

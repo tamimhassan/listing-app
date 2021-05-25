@@ -6,15 +6,16 @@ import LinkText from '../components/LinkText';
 import Container from '../components/Container';
 import CoustomButton from '../components/CoustomButton';
 
+import {BASE_URL} from '../enviro';
+
 const ForgotPassword = ({navigation}) => {
   const [emailValue, setEmailValue] = useState('');
   const [key, setKey] = useState('');
   const [keyFromBackend, setKeyFromBackend] = useState('');
   const [user, setUser] = useState({});
-  console.log(user);
 
   const handleSubmit = async () => {
-    await fetch('http://192.168.1.14:8080/forgot-password', {
+    await fetch(`${BASE_URL}/forgot-password`, {
       method: 'POST',
       headers: {
         Accept: 'application/json',

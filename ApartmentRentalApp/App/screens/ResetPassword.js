@@ -6,12 +6,13 @@ import LinkText from '../components/LinkText';
 import Container from '../components/Container';
 import CoustomButton from '../components/CoustomButton';
 
+import {BASE_URL} from '../enviro';
+
 const ResetPassword = ({navigation, route}) => {
   const [newPassword1, setNewPassword1] = useState('');
   const [newPassword2, setNewPassword2] = useState('');
 
   const {user} = route.params;
-  console.log(user);
 
   const handleConfirm = async () => {
     if (newPassword1 === newPassword2) {
@@ -22,7 +23,7 @@ const ResetPassword = ({navigation, route}) => {
       };
 
       // console.log(sendData);
-      await fetch('http://192.168.1.14:8080/reset-password', {
+      await fetch(`${BASE_URL}/reset-password`, {
         method: 'POST',
         headers: {
           Accept: 'application/json',

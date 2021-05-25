@@ -8,6 +8,8 @@ import NewInput from '../components/NewInput';
 import Container from '../components/Container';
 import CoustomButton from '../components/CoustomButton';
 
+import {BASE_URL} from '../enviro';
+
 const SignIn = ({navigation}) => {
   const [emailValue, setEmailValue] = useState('');
   const [passwordValue, setpPasswordValue] = useState('');
@@ -17,7 +19,7 @@ const SignIn = ({navigation}) => {
       email: emailValue,
       password: passwordValue,
     };
-    await fetch('http://192.168.1.14:8080/signin', {
+    await fetch(`${BASE_URL}/signin`, {
       method: 'POST',
       headers: {
         Accept: 'application/json',
