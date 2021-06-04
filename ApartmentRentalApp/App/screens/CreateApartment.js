@@ -106,7 +106,7 @@ const CreateApartment = ({navigation}) => {
             placeholder="example:(1200, ..)"
             value={floorSize}
             valueHandle={setfloorSize}
-            iconName="square-full"
+            iconName="th-large"
             iconSize={20}
             iconcolor="#ff0000"
             takeNumberFromKeyboard

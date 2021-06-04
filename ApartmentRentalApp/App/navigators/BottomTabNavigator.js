@@ -4,12 +4,15 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {getFocusedRouteNameFromRoute} from '@react-navigation/native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import Feed from '../screens/Feed';
-import {ProfileStackScreen} from '../navigators/StackNavigator';
+
+import {
+  FeedStackScreen,
+  ProfileStackScreen,
+} from '../navigators/StackNavigator';
 
 const Tab = createBottomTabNavigator();
 
-let hideTabBarIn = ['CreateApartment'];
+const hideTabBarIn = ['Apartment', 'createApartment', 'settings'];
 
 const getTabBarVisibility = route => {
   const routeName = getFocusedRouteNameFromRoute(route);
@@ -19,10 +22,13 @@ const getTabBarVisibility = route => {
 
 function BottomTabNavigator() {
   return (
-    <Tab.Navigator initialRouteName="feed">
+    <Tab.Navigator
+      tabBarOptions={{
+        style: {height: 60},
+      }}>
       <Tab.Screen
-        name="feed"
-        component={Feed}
+        name="FeedStackScreen"
+        component={FeedStackScreen}
         options={{
           tabBarLabel: 'Feed',
           tabBarIcon: ({color}) => (
